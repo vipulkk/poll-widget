@@ -1,0 +1,24 @@
+<div *ngFor="let question of questions" class="poll-container" [@fadeInOut]>
+    <h2 class="poll-question">{{ question.question }}</h2>
+    <ul class="poll-options">
+      <li *ngFor="let option of question.options; let i = index" 
+          class="poll-option" 
+          (click)="vote(question.question, option)" 
+          [class.selected]="selectedOptions[question.question] === option"
+          [attr.data-letter]="generateLetter(i)">
+        {{ option }}
+      </li>
+    </ul>
+    <div class="results" [@fadeInOut]>
+      <h3>Results</h3>
+      <ul>
+        <li *ngFor="let result of results[question.question]">
+          <span class="option">{{ result.option }}</span>
+          <div class="progress-bar" [style.width.%]="calculatePercentage(question.question, result.votes)">
+            {{ calculatePercentage(question.question, result.votes) }}%
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
